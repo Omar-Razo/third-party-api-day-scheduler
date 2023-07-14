@@ -1,6 +1,21 @@
+:root {
+  --dark: #282B28;
+  --cont: #D36135;
+  --light: #83BCA9;
+  --accent-dark: #3E5641;
+  --accent-light: #A24936;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
+  background-color: var(--dark);
+}
+
+header {
+  color: var(--light);
+  border-bottom: 1px solid var(--light);
+  border-color: var(--light);
 }
 
 textarea {
@@ -12,6 +27,7 @@ textarea {
   padding: 10px;
 }
 
+
 .description {
   white-space: pre-wrap;
 }
@@ -20,28 +36,29 @@ textarea {
   border-radius: 15px;
 }
 
+/* this is responsible for the annoying top white on each hour */
 .row {
   border-top: 1px solid white;
 }
 
 .hour {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   color: #000000;
   border-top: 1px dashed #000000;
 }
 
 .past {
-  background-color: #d3d3d3;
+  background-color: var(--light);
   color: white;
 }
 
 .present {
-  background-color: #ff6961;
+  background-color: var(--cont);
   color: white;
 }
 
 .future {
-  background-color: #77dd77;
+  background-color: var(--accent-dark);
   color: white;
 }
 
