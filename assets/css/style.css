@@ -18,8 +18,13 @@ header {
   border-color: var(--light);
 }
 
+#currentDay {
+  color: var(--cont);
+}
+
 #clock {
   font-family: 'VT323', monospace;
+  color: var(--cont);
 }
 
 
