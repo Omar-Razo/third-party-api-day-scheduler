@@ -22,3 +22,29 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 });
+
+
+// date element
+let dateEl = $("#currentDay");
+let todaysDate = dayjs().format("dddd, MMMM D, YYYY");
+
+dateEl.text(todaysDate);
+
+// update clock
+function updateClock() {
+  let clockEl = $("#clock");
+  let todaysTime = dayjs().format("hh:mm:ss A");
+
+  clockEl.text(`It is now: ${todaysTime}`)
+}
+
+setInterval(updateClock, 1000);
+
+// create hour object
+let hour09 = {
+  hourEl: $("#hour-9"),
+  timeId: dayjs().hour(9),
+  timeState: "past",
+  eventText: "",
+}
+

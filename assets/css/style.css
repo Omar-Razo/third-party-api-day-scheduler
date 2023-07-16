@@ -18,15 +18,28 @@ header {
   border-color: var(--light);
 }
 
-textarea {
-  background: transparent;
-  border: none;
-  resize: none;
-  color: #000000;
-  border-left: 1px solid black;
-  padding: 10px;
+#clock {
+  font-family: 'VT323', monospace;
 }
 
+
+.container-lg {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+}
+
+.container-lg > * {
+  margin-block: 0.2rem;
+}
+
+
+/* hour cards */
+
+/* this is responsible for the annoying top white on each hour */
+.row {
+  border-top: 1px solid white;
+}
 
 .description {
   white-space: pre-wrap;
@@ -34,27 +47,36 @@ textarea {
 
 .time-block {
   border-radius: 15px;
+  font-size: 300;
 }
 
-/* this is responsible for the annoying top white on each hour */
-.row {
-  border-top: 1px solid white;
+textarea {
+  background: transparent;
+  border: none;
+  resize: none;
+  color: inherit;
+  border-left: 1px solid black;
+  padding: 10px;
 }
 
 .hour {
   /* background-color: #ffffff; */
   color: #000000;
-  border-top: 1px dashed #000000;
+  border-top: 4px solid #000000;
+  border-radius: 15px;
+  font-size: 1.4rem;
+  overflow: hidden;
+  min-width: 50px;
 }
 
 .past {
   background-color: var(--light);
-  color: white;
+  color: #000000;
 }
 
 .present {
   background-color: var(--cont);
-  color: white;
+  color: #000000;
 }
 
 .future {
