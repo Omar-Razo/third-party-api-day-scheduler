@@ -59,7 +59,6 @@ setInterval(updateClock, 1000);
 
 let dayContainer = $("#container")
 let containerChildren = dayContainer.children(".time-block");
-console.log()
 
 // hour object
 let hour09 = {
@@ -137,3 +136,28 @@ function checkTimeState() {
 }
 
 checkTimeState()
+
+// Local Storage/Saving Events
+let eventsForDay = localStorage.getItem("eventsForDay")
+
+containerChildren.on("click", function() {
+  // console.log("current target", $(this))
+
+  for (hour of hours) {
+    if (hour.hourEl.attr("id") === $(this).attr("id")) {
+      hour.eventText = $(this).children("textarea").val();
+      console.log(hour.eventText);
+      console.log("I'm in");
+    }
+    else {
+      console.log("didn't work");
+    }
+  }
+
+  // on click of save btn area
+})
+
+// populating text on load
+// parse saved json (array?)
+// for object in array
+// set textarea = eventtext
