@@ -128,9 +128,10 @@ $(function () {
 // // Kyle's time problem
 
 // // function that updates styles
-// // function updateTimeBlockStyles() {
-// //   // some code
-// // }
+// function updateTimeBlockStyles() {
+//   // some code that goes thru hour blocks
+//   //  and update styles to reflect time change
+// }
 
 // // on load set start of next hour --> hour: 0 mins : 0 secs
 // let nextHour = dayjs().add(1, "Hour").startOf("hour")
@@ -145,5 +146,6 @@ $(function () {
 // setTimeout(function () {
 //   // call style change function
 //   updateTimeBlockStyles()
+//   // set interval to update time blocks every hour from here on
 //   setInterval (updateTimeBlockStyles, 3600000)
 // }, millisecondsTillNextHour)
