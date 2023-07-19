@@ -27,7 +27,6 @@ header {
   color: var(--cont);
 }
 
-
 .container-lg {
   display: flex;
   flex-flow: column nowrap;
@@ -40,8 +39,6 @@ header {
 
 
 /* hour cards */
-
-/* this is responsible for the annoying top white on each hour */
 .row {
   border-top: 1px solid white;
 }
@@ -65,8 +62,7 @@ textarea {
 }
 
 .hour {
-  /* background-color: #ffffff; */
-  color: #000000;
+  color: #000;
   border-top: 4px solid #000000;
   border-radius: 15px;
   font-size: 1.4rem;
@@ -76,28 +72,32 @@ textarea {
 
 .past {
   background-color: var(--light);
-  color: #000000;
+  color: #000;
 }
 
 .present {
   background-color: var(--cont);
-  color: #000000;
+  color: #fff;
 }
 
 .future {
   background-color: var(--accent-dark);
-  color: white;
+  color: #fff;
 }
 
 .saveBtn {
-  border-left: 1px solid black;
+  border: 3px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   background-color: #06aed5;
-  color: white;
+  color: #FFF;
 }
 
-.saveBtn i:hover {
+.saveBtn:hover {
+  color: #000;
+}
+
+.saveBtn:focus i {
   font-size: 20px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.1s;
 }
