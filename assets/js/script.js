@@ -57,13 +57,16 @@ $(function () {
     },
   ]
 
-  // DOM element
-  let containerChildren = $("#container .time-block");
-
   // date element
   let dateEl = $("#currentDay");
   let todaysDate = dayjs().format("dddd, MMMM D, YYYY");
   dateEl.text(`Today is: ${todaysDate}`);
+
+  // create variable/marker for constant style update
+  let nextHour;
+
+  // DOM element
+  let containerChildren = $("#container .time-block");
 
   // update style to reflect current time
   function checkTimeState() {
@@ -80,6 +83,8 @@ $(function () {
         hours[i].hourEl.addClass("future");
       }
     }
+    // updates nextHour to reflect change in new hour
+    nextHour = dayjs().add(1, "hour")
   }
 
   // check time state on load
@@ -90,7 +95,15 @@ $(function () {
     // clock elements
     let clockEl = $("#clock");
     let todaysTime = dayjs().format("hh:mm:ss A");
-    clockEl.text(`It is now: ${todaysTime}`)
+    clockEl.text(`It is now: ${todaysTime}`);
+
+    // snapshot of current time/hour
+    let currentHour = dayjs();
+    // checks to see if snapshot has caught up to next hour
+    if (currentHour.isSame(nextHour, "hour")) {
+      // update styles and update nextHour to new "next" hour
+      checkTimeState()
+    }
   }
 
   // update clock every second >>> realtime clock/check time to next hour
@@ -102,9 +115,9 @@ $(function () {
     let savedEvents = JSON.parse(localStorage.getItem("eventsForDay"));
     if (savedEvents !== null) {
       for (i = 0; i < savedEvents.length; i++) {
-        // populate eventText property with saved eventText (on load hours.eventText is reset and must be re-populated with save text)
+        // populate eventText property with saved eventText (on load, hours array is reset and .eventText must be re-populated with saved text)
         hours[i].eventText = savedEvents[i].eventText
-        // populate textarea qith saved eventText
+        // populate textarea with saved eventText
         hours[i].hourEl.children("textarea").val(savedEvents[i].eventText)
       }
     }
@@ -115,7 +128,6 @@ $(function () {
 
   // eventlistener on click
   containerChildren.on("click", ".btn", function(event) {
-    // event.stopPropagation()
     // match event.delegateTarget to corresponding hour object
     let matchingHourEl = hours.find(el => el.hourEl.attr("id") === ($(event.delegateTarget).attr("id")))
     // set that hour's eventtext to textarea value
@@ -125,27 +137,62 @@ $(function () {
   })
 });
 
-// // Kyle's time problem
 
-// // function that updates styles
+
+
+// // Kyle's time problem:
+// // "I want to update the styling at some interval starting with the next hour (whenever that may be)"
+// // --------------------------------------------------------------------------------------
+
+// // function that updates styles (which you probably already have created)
 // function updateTimeBlockStyles() {
-//   // some code that goes thru hour blocks
-//   //  and update styles to reflect time change
+//   // code updates hour blocks styles to reflect time change
 // }
 
-// // on load set start of next hour --> hour: 0 mins : 0 secs
+// on load set start of next hour --> (current hour + 1): 0 mins : 0 secs (if only .add is used, the dayjs objects will always be one hour's worth of units apart)
 // let nextHour = dayjs().add(1, "Hour").startOf("hour")
 
-// // snapshot of current time
+// // snapshot of current time on load
 // let currentHour = dayjs()
 
-// // store difference (in seconds) between current time and start of next hour
+// // store difference (in milliseconds) between current time and start of next hour (.diff(obj, "unit") defaults to milliseconds so 2nd param not needed)
 // let millisecondsTillNextHour = nextHour.diff(currentHour)
-// console.log(millisecondsTillNextHour)
 
+// // below is confirmed to work w/o error (best as i can tell)
+
+// // set first timeout using calc'd millisecond difference
 // setTimeout(function () {
 //   // call style change function
 //   updateTimeBlockStyles()
 //   // set interval to update time blocks every hour from here on
 //   setInterval (updateTimeBlockStyles, 3600000)
+// }, millisecondsTillNextHour)
+
+// // or if we want to avoid setInterval:
+
+// ----- This solution is currently having an issue with recursion error (too many calls made) ------
+
+// // create a function that calls style function and sets new timeout (with a func arg)
+// function styleAndNewTimeout(func) {
+//   //variable and if statement created to prevent rangeError (too many calls)
+//   let hoursPast = 0 
+//   if (hoursPast < 8) {
+//   hoursPast++
+//   // call style function
+//   checkTimeState()
+//   logTime = dayjs().format("hh:mm:ss")
+//   console.log(`The first timeout done at ${logTime}`)
+//   // set new timeout to call new timeout in one hour
+//   setTimeout(styleAndNewTimeout(func), 3600000)
+//   }
+// } 
+
+// // mostly same as above - this is the first timeout - once executed, repeating timeout should start
+// setTimeout(function () {
+//   // call style change function
+//   checkTimeState()
+//   nextlogtime = dayjs().format("hh:mm:ss")
+//   console.log(`This timeout done at ${nextlogtime}`)
+//   // set new time out to run new timeout function in one hour
+//   setTimeout(styleAndNewTimeout(checkTimeState), 3600000)
 // }, millisecondsTillNextHour)
